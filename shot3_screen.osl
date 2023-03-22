@@ -1,0 +1,17 @@
+shader shot3_screen (
+	color Cin = 1,
+    color LineColor = 1,
+    float Time = 1.0,
+    float f = 1.0,	
+output	color Cout=0
+)
+{
+    float fuzz=0.025;
+
+    float s=u+sin(v*f*M_PI)*0.4*Time;
+
+    float dist=abs(s-0.5);
+    float inLine=1-smoothstep(0.1-fuzz,0.1+fuzz,dist);
+    Cout=mix(Cin,LineColor,inLine);
+}
+

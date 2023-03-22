@@ -1,0 +1,15 @@
+shader shot2_screen (
+	color Cin = 1,
+    float repeatCount=5.0,
+    int Time = 1,
+    float a = 30.0,
+output	color Cout=0
+)
+{
+    
+    int whichStripe=(int)floor(v*repeatCount);
+    Cout=(color)((whichStripe%Time) * Cin);
+}
+
+
+

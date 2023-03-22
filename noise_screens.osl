@@ -1,0 +1,13 @@
+shader noisescreens (
+	color Cin = 1,
+	float repeatCount=5,
+	int Time = 2,
+output	color Cout=0
+)
+{
+	if(Time % 2==0)
+    Cout=(color) noise("cell",u*repeatCount);
+	else
+	Cout=(color) noise("cell",v*repeatCount);
+}
+

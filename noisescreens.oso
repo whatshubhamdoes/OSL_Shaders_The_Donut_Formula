@@ -1,0 +1,32 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.11.0@OPROJECT_VERSION_RELEASE_TYPE@
+# options: 
+shader noisescreens
+param	color	Cin	1 1 1		%read{2147483647,-1} %write{2147483647,-1}
+param	float	repeatCount	5		%read{3,5} %write{2147483647,-1}
+param	int	Time	2		%read{0,0} %write{2147483647,-1}
+oparam	color	Cout	0 0 0		%read{2147483647,-1} %write{4,6}
+global	float	u	%read{3,3} %write{2147483647,-1}
+global	float	v	%read{5,5} %write{2147483647,-1}
+const	int	$const1	2		%read{0,0} %write{2147483647,-1}
+temp	int	$tmp1	%read{1,1} %write{0,0}
+const	int	$const2	0		%read{1,1} %write{2147483647,-1}
+temp	int	$tmp2	%read{2,2} %write{1,1}
+const	string	$const3	"cell"		%read{4,6} %write{2147483647,-1}
+temp	float	$tmp3	%read{4,4} %write{3,3}
+temp	float	$tmp4	%read{6,6} %write{5,5}
+code ___main___
+# .\\noise_screens.osl:9
+#     Cout=(color) noise("cell",u*repeatCount);
+	mod		$tmp1 Time $const1 	%filename{".\\noise_screens.osl"} %line{9} %argrw{"wrr"}
+	eq		$tmp2 $tmp1 $const2 	%argrw{"wrr"}
+	if		$tmp2 5 7 	%argrw{"r"}
+# .\\noise_screens.osl:10
+# 	else
+	mul		$tmp3 u repeatCount 	%line{10} %argrw{"wrr"}
+	noise		Cout $const3 $tmp3 	%argrw{"wrr"}
+# .\\noise_screens.osl:12
+# }
+	mul		$tmp4 v repeatCount 	%line{12} %argrw{"wrr"}
+	noise		Cout $const3 $tmp4 	%argrw{"wrr"}
+	end

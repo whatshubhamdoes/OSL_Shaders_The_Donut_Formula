@@ -1,0 +1,27 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.11.0@OPROJECT_VERSION_RELEASE_TYPE@
+# options: 
+shader shot2_screen
+param	color	Cin	1 1 1		%read{5,5} %write{2147483647,-1}
+param	float	repeatCount	5		%read{0,0} %write{2147483647,-1}
+param	int	Time	1		%read{3,3} %write{2147483647,-1}
+param	float	a	30		%read{2147483647,-1} %write{2147483647,-1}
+oparam	color	Cout	0 0 0		%read{2147483647,-1} %write{5,5}
+global	float	u	%read{0,0} %write{2147483647,-1}
+local	int	whichStripe	%read{3,3} %write{2,2}
+temp	float	$tmp1	%read{2,2} %write{1,1}
+temp	float	$tmp2	%read{1,1} %write{0,0}
+temp	int	$tmp3	%read{4,4} %write{3,3}
+temp	color	$tmp4	%read{5,5} %write{4,4}
+code ___main___
+# .\\shot2_screen.osl:11
+#     Cout=(color)((whichStripe%Time) * Cin);
+	mul		$tmp2 u repeatCount 	%filename{".\\shot2_screen.osl"} %line{11} %argrw{"wrr"}
+	floor		$tmp1 $tmp2 	%argrw{"wr"}
+	assign		whichStripe $tmp1 	%argrw{"wr"}
+# .\\shot2_screen.osl:12
+# }
+	mod		$tmp3 whichStripe Time 	%line{12} %argrw{"wrr"}
+	assign		$tmp4 $tmp3 	%argrw{"wr"}
+	mul		Cout $tmp4 Cin 	%argrw{"wrr"}
+	end
